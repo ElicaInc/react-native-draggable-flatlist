@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import Animated, {
   useDerivedValue,
+  useSharedValue, // fixed by patch
   withSpring,
   WithSpringConfig,
 } from "react-native-reanimated";
@@ -15,8 +16,10 @@ type Params = {
 export function useOnCellActiveAnimation(
   { animationConfig }: Params = { animationConfig: {} }
 ) {
-  const animationConfigRef = useRef(animationConfig);
-  animationConfigRef.current = animationConfig;
+  //const animationConfigRef = useRef(animationConfig);
+  //animationConfigRef.current = animationConfig;
+  const animationConfigRef = useSharedValue(animationConfig); // fixed by patch
+  animationConfigRef.value = animationConfig; // fixed by patch
 
   const isActive = useIsActive();
 
