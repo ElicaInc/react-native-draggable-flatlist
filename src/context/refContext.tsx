@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { useMemo, useRef } from "react";
 import { FlatList } from "react-native-gesture-handler";
-import Animated, { WithSpringConfig } from "react-native-reanimated";
+//import Animated, { WithSpringConfig } from "react-native-reanimated";
+import Animated, { type SharedValue, useSharedValue, WithSpringConfig } from "react-native-reanimated"; // fixed by patch
 import { DEFAULT_PROPS } from "../constants";
 import { useProps } from "./propsContext";
 import { CellData, DraggableFlatListProps } from "../types";
