@@ -101,7 +101,8 @@ export function useCellTranslate({ cellIndex, cellSize, cellOffset }: Params) {
       ? activeCellSize.value * (isAfterActive ? -1 : 1)
       : 0;
 
-    return withSpring(translationAmt, animationConfigRef.current);
+    //return withSpring(translationAmt, animationConfigRef.current);
+    return withSpring(translationAmt, animationConfigRef.value); // fixed by patch
   }, [activeKey, cellIndex]);
 
   return translate;
