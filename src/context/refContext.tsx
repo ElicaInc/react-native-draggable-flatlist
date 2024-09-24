@@ -9,7 +9,8 @@ import { CellData, DraggableFlatListProps } from "../types";
 
 type RefContextValue<T> = {
   propsRef: React.MutableRefObject<DraggableFlatListProps<T>>;
-  animationConfigRef: React.MutableRefObject<WithSpringConfig>;
+  //animationConfigRef: React.MutableRefObject<WithSpringConfig>;
+  animationConfigRef: SharedValue<WithSpringConfig>; // fixed by patch
   cellDataRef: React.MutableRefObject<Map<string, CellData>>;
   keyToIndexRef: React.MutableRefObject<Map<string, number>>;
   containerRef: React.RefObject<Animated.View>;
@@ -55,8 +56,10 @@ function useSetupRefs<T>({
     ...DEFAULT_PROPS.animationConfig,
     ...animationConfig,
   } as WithSpringConfig;
-  const animationConfigRef = useRef(animConfig);
-  animationConfigRef.current = animConfig;
+  //const animationConfigRef = useRef(animConfig);
+  //animationConfigRef.current = animConfig;
+  const animationConfigRef = useSharedValue(animConfig); // fixed by patch
+  animationConfigRef.value = animConfig; // fixed by patch
 
   const cellDataRef = useRef(new Map<string, CellData>());
   const keyToIndexRef = useRef(new Map<string, number>());
