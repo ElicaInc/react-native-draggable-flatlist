@@ -117,7 +117,7 @@ function CellRendererComponent<T>(props: Props<T>) {
   const baseStyle = useMemo(() => {
     return {
       elevation: isActive ? 1 : 0,
-      zIndex: isActive ? 999 : 0,
+      zIndex: isActive ? 999 : 0,zIndex: isActive ? 999 : item.title === "note" ? 1 : 0, // kwata
       flexDirection: horizontal ? ("row" as const) : ("column" as const),
     };
   }, [isActive, horizontal]);
