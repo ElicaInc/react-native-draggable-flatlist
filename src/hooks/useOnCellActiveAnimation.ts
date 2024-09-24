@@ -29,7 +29,8 @@ export function useOnCellActiveAnimation(
     const toVal = isActive && isTouchActiveNative.value ? 1 : 0;
     return withSpring(toVal, {
       ...DEFAULT_ANIMATION_CONFIG,
-      ...animationConfigRef.current,
+      //...animationConfigRef.current,
+      ...animationConfigRef.value, // fixed by patch
     });
   }, [isActive]);
 
