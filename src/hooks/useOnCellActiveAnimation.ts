@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react"; // fixed by patch
 import Animated, {
   useDerivedValue,
   useSharedValue, // fixed by patch
@@ -16,10 +16,14 @@ type Params = {
 export function useOnCellActiveAnimation(
   { animationConfig }: Params = { animationConfig: {} }
 ) {
-  //const animationConfigRef = useRef(animationConfig);
-  //animationConfigRef.current = animationConfig;
+  /*
+  const animationConfigRef = useRef(animationConfig);
+  animationConfigRef.current = animationConfig;
+  */
   const animationConfigRef = useSharedValue(animationConfig); // fixed by patch
-  animationConfigRef.value = animationConfig; // fixed by patch
+  useEffect(() => {
+    animationConfigRef.value = animationConfig;
+  }, [animationConfig]);
 
   const isActive = useIsActive();
 
@@ -29,9 +33,12 @@ export function useOnCellActiveAnimation(
     const toVal = isActive && isTouchActiveNative.value ? 1 : 0;
     return withSpring(toVal, {
       ...DEFAULT_ANIMATION_CONFIG,
-      //...animationConfigRef.current,
-      ...animationConfigRef.value, // fixed by patch
+    /*
+      ...animationConfigRef.current,
     });
+    */
+      ...animationConfigRef.value,
+    } as WithSpringConfig);
   }, [isActive]);
 
   return {
